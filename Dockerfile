@@ -6,7 +6,12 @@ RUN apt-get update -y --no-install-recommends \
        zlib1g-dev \
        libssl-dev \
        libcurl4-openssl-dev \
-       gnupg2
+       gnupg2 \
+       python3-software-properties \
+       software-properties-common \
+       apt-utils \
+       && apt-get clean && \
+       rm -rf /var/lib/apt/lists/*
 
 # R packages
 # https://askubuntu.com/questions/610449/w-gpg-error-the-following-signatures-couldnt-be-verified-because-the-public-k
