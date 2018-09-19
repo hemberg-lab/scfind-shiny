@@ -1,4 +1,4 @@
-FROM rocker/rstudio:3.5.0
+FROM rocker/shiny:3.5.1
 
 # install some R required stuff
 RUN apt-get update -y --no-install-recommends \
@@ -50,8 +50,4 @@ RUN cp -r indexes/* /srv/shiny-server
 COPY index_page/index.html /srv/shiny-server/index.html
 COPY index_page/img /srv/shiny-server/img
 
-# try to avoid greying out of the apps
-# https://stackoverflow.com/questions/44397818/shiny-apps-greyed-out-nginx-proxy-over-ssl
-RUN echo 'sanitize_errors off;disable_protocols xdr-streaming xhr-streaming iframe-eventsource iframe-htmlfile;' >> /etc/shiny-server/shiny-server.conf
-
-CMD ["/init"]
+CMD ["/usr/bin/shiny-server.sh"]
