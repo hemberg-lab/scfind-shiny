@@ -18,7 +18,7 @@ RUN apt-get update -y --no-install-recommends \
 # https://askubuntu.com/questions/610449/w-gpg-error-the-following-signatures-couldnt-be-verified-because-the-public-k
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
-RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/" | sudo tee -a /etc/apt/sources.list
+RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/" | sudo tee -a /etc/apt/sources.list
 # https://launchpad.net/~marutter/+archive/ubuntu/c2d4u3.5
 RUN add-apt-repository ppa:marutter/c2d4u3.5
 # Install CRAN binaries from ubuntu
