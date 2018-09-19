@@ -10,6 +10,7 @@ RUN apt-get update -y --no-install-recommends \
        python3-software-properties \
        software-properties-common \
        apt-utils \
+       apt-transport-https \
        && apt-get clean && \
        rm -rf /var/lib/apt/lists/*
 
