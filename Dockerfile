@@ -17,10 +17,9 @@ RUN apt-get update -y --no-install-recommends \
 # R packages
 # https://askubuntu.com/questions/610449/w-gpg-error-the-following-signatures-couldnt-be-verified-because-the-public-k
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-# https://cran.r-project.org/bin/linux/ubuntu/README.html
-RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/" | sudo tee -a /etc/apt/sources.list
 # https://launchpad.net/~marutter/+archive/ubuntu/c2d4u3.5
-RUN add-apt-repository ppa:marutter/c2d4u3.5
+RUN echo "deb http://ppa.launchpad.net/marutter/c2d4u3.5/ubuntu xenial main" | sudo tee -a /etc/apt/sources.list
+RUN echo "deb-src http://ppa.launchpad.net/marutter/c2d4u3.5/ubuntu xenial main" | sudo tee -a /etc/apt/sources.list
 # Install CRAN binaries from ubuntu
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     r-cran-data.table \
