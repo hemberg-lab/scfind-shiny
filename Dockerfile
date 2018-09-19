@@ -16,7 +16,7 @@ RUN apt-get update -y --no-install-recommends \
 
 # R packages
 # https://askubuntu.com/questions/610449/w-gpg-error-the-following-signatures-couldnt-be-verified-because-the-public-k
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5E25F516B04C661B
 # https://launchpad.net/~marutter/+archive/ubuntu/c2d4u3.5
 RUN echo "deb http://ppa.launchpad.net/marutter/c2d4u3.5/ubuntu xenial main" | sudo tee -a /etc/apt/sources.list
 RUN echo "deb-src http://ppa.launchpad.net/marutter/c2d4u3.5/ubuntu xenial main" | sudo tee -a /etc/apt/sources.list
