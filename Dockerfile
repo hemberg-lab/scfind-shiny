@@ -23,7 +23,7 @@ RUN echo "deb-src http://ppa.launchpad.net/marutter/c2d4u3.5/ubuntu xenial main"
 # Install CRAN binaries from ubuntu
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     r-cran-data.table \
-    r-cran-DT \
+    r-cran-dt \
     r-cran-devtools \
     r-cran-ggplot2 \
     && apt-get clean && \
