@@ -22,6 +22,10 @@ RUN echo "deb http://ppa.launchpad.net/marutter/c2d4u3.5/ubuntu xenial main" | s
 RUN echo "deb-src http://ppa.launchpad.net/marutter/c2d4u3.5/ubuntu xenial main" | sudo tee -a /etc/apt/sources.list
 # Install CRAN binaries from ubuntu
 RUN apt-get update && apt-get install -yq --no-install-recommends \
+    r-cran-reshape2 \
+    r-cran-mgcv \
+    r-cran-git2r \
+    r-cran-httr \
     r-cran-data.table \
     r-cran-dt \
     r-cran-devtools \
