@@ -10,7 +10,7 @@ RUN apt-get update -y --no-install-recommends \
        rm -rf /var/lib/apt/lists/*
 
 # R packages
-RUN install2.r data.table DT devtools ggplot2
+RUN install2.r data.table DT devtools ggplot2 hash
 
 RUN echo 'source("https://bioconductor.org/biocLite.R")' > /opt/bioconductor.r && \
     echo 'biocLite()' >> /opt/bioconductor.r && \
