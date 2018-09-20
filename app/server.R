@@ -124,12 +124,14 @@ server <- function(input, output, session)
         g
     })
 
-    output$object <- reactive({
-        return(object)
+    output$datasets <- renderUI({
+        checkboxGroupInput("datasetCheckbox",
+                    h3("Datasets"),
+                    choices = object@datasets,
+                    selected = object@datasets,
+                    inline = T
+                    )
     })
-
-    # make output variables visible for the client side
-    outputOptions(output, "object", suspendWhenHidden = FALSE)
 
     session$onSessionEnded(function() {
         stopApp()
