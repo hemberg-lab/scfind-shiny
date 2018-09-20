@@ -124,6 +124,13 @@ server <- function(input, output, session)
         g
     })
 
+    output$object <- reactive({
+        return(object)
+    })
+
+    # make output variables visible for the client side
+    outputOptions(output, "object", suspendWhenHidden = FALSE)
+
     session$onSessionEnded(function() {
         stopApp()
     })

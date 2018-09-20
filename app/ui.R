@@ -8,8 +8,8 @@ ui <- fluidPage(
             uiOutput("geneCheckbox"),
             checkboxGroupInput("datasetCheckbox",
                                h3("Datasets"),
-                               choices = object@datasets,
-                               selected = object@datasets,
+                               choices = output.object@datasets,
+                               selected = output.object@datasets,
                                inline = T
                                ),
             dataTableOutput("queryOptimizer"),
