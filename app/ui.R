@@ -6,7 +6,7 @@ ui <- fluidPage(
         sidebarPanel(
             textInput("geneList", label = h3("Gene List"), value = ""),
             uiOutput("geneCheckbox"),
-            uiOutput("datasets")
+            uiOutput("datasets"),
             dataTableOutput("queryOptimizer"),
             width = 14
         ),
