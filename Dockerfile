@@ -10,16 +10,6 @@ RUN apt-get update -y --no-install-recommends \
        && apt-get clean && \
        rm -rf /var/lib/apt/lists/*
 
-# R packages
-RUN install2.r data.table DT devtools ggplot2 hash
-
-RUN echo 'source("https://bioconductor.org/biocLite.R")' > /opt/bioconductor.r && \
-    echo 'biocLite()' >> /opt/bioconductor.r && \
-    echo 'biocLite(c("SingleCellExperiment", "SummarizedExperiment"))' >> /opt/bioconductor.r && \
-    Rscript /opt/bioconductor.r
-
-RUN Rscript -e "devtools::install_github('pati-ni/scfind', ref='develop')"
-
 # add app to the server
 ADD indexes indexes/
 # download indexes from google drive
@@ -33,5 +23,15 @@ RUN cp -r indexes/* /srv/shiny-server
 # update the index page
 COPY index_page/index.html /srv/shiny-server/index.html
 COPY index_page/img /srv/shiny-server/img
+
+# R packages
+RUN install2.r data.table DT devtools ggplot2 hash
+
+RUN echo 'source("https://bioconductor.org/biocLite.R")' > /opt/bioconductor.r && \
+    echo 'biocLite()' >> /opt/bioconductor.r && \
+    echo 'biocLite(c("SingleCellExperiment", "SummarizedExperiment"))' >> /opt/bioconductor.r && \
+    Rscript /opt/bioconductor.r
+
+RUN Rscript -e "devtools::install_github('pati-ni/scfind', ref='develop')"
 
 CMD ["/usr/bin/shiny-server.sh"]
