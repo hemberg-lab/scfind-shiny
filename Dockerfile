@@ -24,6 +24,7 @@ RUN Rscript -e "devtools::install_github('pati-ni/scfind', ref='develop')"
 ADD indexes indexes/
 # download indexes from google drive
 # https://github.com/circulosmeos/gdown.pl
+ADD gdown.pl /
 RUN ./gdown.pl https://drive.google.com/file/d/1xz_ecGA0L85OzNf3Y2ifjYRyn3-H7q3X/view\?usp\=sharing indexes/mca/www/mca.rds
 ADD app app/
 RUN for d in indexes/*/; do cp app/* "$d"; done
