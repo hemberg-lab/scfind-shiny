@@ -13,51 +13,40 @@ object <- loadObject("www/mca.rds")
 
 server <- function(input, output, session)
 {
-    gene.list <- reactive({
+
+    last.query.state <- reactiveVal("genelist")
+    gene.list <- reactiveVal(c())
+    observeEvent(
+        input$geneCheckbox,
+        {
+            last.query.state("checkbox")
+        })
+
+
+
+    
+    observeEvent(
+        input$queryOptimizer_rows_selected,
+        {   
+            last.query.state("query_optimizer")
+        })
+    
+    
+    observeEvent(input$geneList,{
         text <- gsub("\\s", "", input$geneList)
         gene.list.input <- unlist(strsplit(text, ","))
-        print(gene.list.input)
-        gene.list.input
+        last.query.state("genelist")
+        print(paste("GeneList",gene.list.input))
+        gene.list(gene.list.input)
     })
 
-    checkbox.selection <- reactive({
-        
-        selected.index <- input$queryOptimizer_rows_selected
-        if (!is.null(selected.index))
-        {
-            available.queries <-  recommended.queries()
-            selected.query <- available.queries[selected.index, 'Query']
-            print(paste0('selected query', selected.query))
-            genes <-  unlist(strsplit(gsub("\\s", "", selected.query), ","))
-        }
-        else
-        {
-            if (is.null(input$geneCheckbox))
-            {
-                genes <- gene.list()
-            }
-            else
-            {
-                genes <- input$geneCheckbox
-            }
-        }
-        print(genes)
-        genes
-        ## updateSelectInput(session, "geneCheckbox", selected  = genes)
-    })
-
-    output$geneCheckbox <- renderUI({
-        
-        ## Select genes
-        checkboxGroupInput("geneCheckbox", h4("Select Genes"), choices = gene.list(), selected = checkbox.selection(), inline = T)
-    })
-    
     recommended.queries <- reactive({
-        
         selected.genes <- gene.list()
         selected.datasets <- input$datasetCheckbox
         if (length(selected.genes) != 0)
         {
+            ## print(paste("QO gene:",selected.genes))
+            ## print(paste("QO selected:",selected.datasets))
             available.queries <-  markerGenes(object, selected.genes, selected.datasets)
         }
         else
@@ -68,14 +57,41 @@ server <- function(input, output, session)
         available.queries
     })
 
+    qo.output <- reactive({
+        selected.index <- input$queryOptimizer_rows_selected
+        available.queries <-  recommended.queries()
+        selected.query <- available.queries[selected.index, 'Query']
+        ## print(paste0('selected query', selected.query))
+        unlist(strsplit(gsub("\\s", "", selected.query), ","))
+    })
+    
 
+    
+    output$geneCheckbox <- renderUI({
+        if(last.query.state() == "query_optimizer")
+        {
+            checkboxGroupInput("geneCheckbox", h4("Select Genes"), choices = gene.list(), selected = qo.output(), inline = T)
+        }
+        else if (last.query.state() == "checkbox")
+        {
+            checkboxGroupInput("geneCheckbox", h4("Select Genes"), choices = gene.list(), selected = input$geneCheckbox, inline = T)                    
+        }
+        else
+        {
+            checkboxGroupInput("geneCheckbox", h4("Select Genes"), choices = gene.list(), selected = gene.list(), inline = T)
+        }
+        ## Select genes
+        
+    })
+    
     output$queryOptimizer <- renderDataTable({
         
         datatable(recommended.queries(), selection = 'single')
     })
 
+    
     cell.types <- reactive({
-        selection <- checkbox.selection()
+        selection <- input$geneCheckbox
         
         if (length(selection) != 0){
             df <- query.result.as.dataframe(findCellTypes(object, selection, input$datasetCheckbox))
@@ -96,10 +112,10 @@ server <- function(input, output, session)
         gene.support
     })
     
-    output$cellTypesData <- renderDataTable({                
+    
+    output$cellTypesData <- renderDataTable({       
         df <- cell.types()
         datatable(phyper.test(object, df, input$datasetCheckbox), selection = 'single')
-        
     })
     
     output$geneSupportHisto <- renderPlot({
@@ -107,7 +123,7 @@ server <- function(input, output, session)
         ## print(length(input$geneCheckbox))
         ## print(input$geneCheckbox)
         df <- gene.support()
-        print(df)
+        ## print(df)
         if (nrow(df) != 0)
         {
             g <- ggplot(df, aes(x=genes, y= support)) +
@@ -124,16 +140,11 @@ server <- function(input, output, session)
         g
     })
 
-    output$datasets <- renderUI({
-        checkboxGroupInput("datasetCheckbox",
-                    h3("Datasets"),
-                    choices = object@datasets,
-                    selected = object@datasets,
-                    inline = T
-                    )
-    })
-
+    
+    
+    
     session$onSessionEnded(function() {
         stopApp()
     })
-}
+})
+
