@@ -1,2 +1,0 @@
-rds filter=lfs diff=lfs merge=lfs -text
-indexes/mca/www/mca.rds filter=lfs diff=lfs merge=lfs -text
