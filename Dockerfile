@@ -11,7 +11,7 @@ RUN apt-get update -y --no-install-recommends \
        rm -rf /var/lib/apt/lists/*
 
 # add app to the server
-ADD mkdir -p indexes/mca/www/
+RUN mkdir -p indexes/mca/www/
 # download indexes from google drive
 # https://github.com/circulosmeos/gdown.pl
 ADD gdown.pl /
