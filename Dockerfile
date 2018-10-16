@@ -1,4 +1,4 @@
-FROM rocker/shiny:3.4.2
+FROM rocker/shiny:3.5.1
 
 # install some R required stuff
 RUN apt-get update -y --no-install-recommends \

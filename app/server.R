@@ -140,8 +140,14 @@ server <- function(input, output, session)
         g
     })
 
-    
-    
+    output$datasets <- renderUI({
+      checkboxGroupInput("datasetCheckbox",
+                         h3("Datasets"),
+                         choices = object@datasets,
+                         selected = object@datasets,
+                         inline = T
+      )
+    })
     
     session$onSessionEnded(function() {
         stopApp()
