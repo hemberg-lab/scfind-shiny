@@ -32,6 +32,6 @@ RUN echo 'source("https://bioconductor.org/biocLite.R")' > /opt/bioconductor.r &
     echo 'biocLite(c("SingleCellExperiment", "SummarizedExperiment"))' >> /opt/bioconductor.r && \
     Rscript /opt/bioconductor.r
 
-RUN Rscript -e "devtools::install_github('pati-ni/scfind', ref='develop')"
+RUN Rscript -e "devtools::install_github('hemberg-lab/scfind')"
 
 CMD ["/usr/bin/shiny-server.sh"]
