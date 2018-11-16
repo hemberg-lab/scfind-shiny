@@ -14,12 +14,18 @@ RUN apt-get update -y --no-install-recommends \
 RUN mkdir -p indexes/mca/www/
 RUN mkdir -p indexes/tm-10X/www/
 RUN mkdir -p indexes/tm-facs/www/
+RUN mkdir -p indexes/brain/www/
+RUN mkdir -p indexes/malaria/www/
+RUN mkdir -p indexes/liver/www/
 # download indexes from google drive
 # https://github.com/circulosmeos/gdown.pl
 ADD gdown.pl /
-RUN ./gdown.pl https://drive.google.com/file/d/1xz_ecGA0L85OzNf3Y2ifjYRyn3-H7q3X/view\?usp\=sharing indexes/mca/www/data.rds
-RUN ./gdown.pl https://drive.google.com/file/d/1YrvQSiX9mEzW2GulAo4tNOHre4h72sKW/view?usp=sharing indexes/tm-10X/www/data.rds
-RUN ./gdown.pl https://drive.google.com/file/d/11RwE2ZtojnQX4WyhXxKGtSkxQIlSJZx6/view?usp=sharing indexes/tm-facs/www/data.rds
+RUN ./gdown.pl https://drive.google.com/open?id=1xz_ecGA0L85OzNf3Y2ifjYRyn3-H7q3X indexes/mca/www/data.rds
+RUN ./gdown.pl https://drive.google.com/open?id=1YrvQSiX9mEzW2GulAo4tNOHre4h72sKW indexes/tm-10X/www/data.rds
+RUN ./gdown.pl https://drive.google.com/open?id=11RwE2ZtojnQX4WyhXxKGtSkxQIlSJZx6 indexes/tm-facs/www/data.rds
+RUN ./gdown.pl https://drive.google.com/open?id=11b8amSkzeu6JaO3pXzlp7KC0_dLFkvY1 indexes/brain/www/data.rds
+RUN ./gdown.pl https://drive.google.com/open?id=11zaY9NfuCKKnPdDCQJMFtO3EnLRAfzui indexes/malaria/www/data.rds
+RUN ./gdown.pl https://drive.google.com/open?id=11a9AsZMceGghOXm6kO5mC6phHq6pe2JP indexes/liver/www/data.rds
 ADD app app/
 RUN for d in indexes/*/; do cp app/* "$d"; done
 RUN cp -r indexes/* /srv/shiny-server
