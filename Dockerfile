@@ -17,6 +17,7 @@ RUN mkdir -p indexes/tm-facs/www/
 RUN mkdir -p indexes/brain/www/
 RUN mkdir -p indexes/malaria/www/
 RUN mkdir -p indexes/liver/www/
+RUN mkdir -p indexes/spinalcord/www/
 # download indexes from google drive
 # https://github.com/circulosmeos/gdown.pl
 ADD gdown.pl /
@@ -26,6 +27,7 @@ RUN ./gdown.pl https://drive.google.com/file/d/11RwE2ZtojnQX4WyhXxKGtSkxQIlSJZx6
 RUN ./gdown.pl https://drive.google.com/file/d/11b8amSkzeu6JaO3pXzlp7KC0_dLFkvY1/view?usp=sharing indexes/brain/www/data.rds
 RUN ./gdown.pl https://drive.google.com/file/d/11zaY9NfuCKKnPdDCQJMFtO3EnLRAfzui/view?usp=sharing indexes/malaria/www/data.rds
 RUN ./gdown.pl https://drive.google.com/file/d/11a9AsZMceGghOXm6kO5mC6phHq6pe2JP/view?usp=sharing indexes/liver/www/data.rds
+RUN ./gdown.pl https://drive.google.com/file/d/1nkv-B8xk6Uejmrq1tMlugqLr_Kmq6fy8/view?usp=sharing indexes/spinalcord/www/data.rds
 ADD app app/
 RUN for d in indexes/*/; do cp app/* "$d"; done
 RUN cp -r indexes/* /srv/shiny-server
