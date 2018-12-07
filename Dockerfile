@@ -35,6 +35,8 @@ RUN cp -r indexes/* /srv/shiny-server
 # update the index page
 COPY index_page/index.html /srv/shiny-server/index.html
 COPY index_page/img /srv/shiny-server/img
+COPY index_page/doc /srv/shiny-server/doc
+COPY index_page/css /srv/shiny-server/css
 
 # R packages
 RUN install2.r data.table DT devtools ggplot2 hash
