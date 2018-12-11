@@ -1,3 +1,3 @@
 library(scfind)
 
-ui <- ui.scfind()
+ui <- scfind:::ui.scfind()
