@@ -49,7 +49,7 @@ RUN echo 'source("https://bioconductor.org/biocLite.R")' > /opt/bioconductor.r &
     echo 'biocLite(c("SingleCellExperiment", "SummarizedExperiment"))' >> /opt/bioconductor.r && \
     Rscript /opt/bioconductor.r
 
-RUN Rscript -e "devtools::install_github('pati-ni/scfind', ref = '72fe3d21dfbd7543d83c3bd3271c8508b0428705')"
+RUN Rscript -e "devtools::install_github('hemberg-lab/scfind', ref = 'shiny-server')"
 
 # try to avoid greying out of the apps
 # https://stackoverflow.com/questions/44397818/shiny-apps-greyed-out-nginx-proxy-over-ssl
