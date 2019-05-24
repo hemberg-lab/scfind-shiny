@@ -20,3 +20,7 @@ docker run -d -p 80:3838 quay.io/hemberg-group/scfind-shiny:1.1.1
 Then `scfind-shiny` will be accessible at http://YOUR_CLOUD_IP/scmap/. In our case it is [https://scfind.sanger.ac.uk](https://scfind.sanger.ac.uk).
 
 Alternatively, you can manually install a Shiny server on your instance and all corresponding R packages mentioned in the [Dockerfile](Dockerfile). You will also need to copy your `scfind-shiny` files to `/srv/shiny-server/scfind` folder.
+
+## Indexes
+
+All `scfind` indexes used in this app are available for browsing and downloading from [here](https://scfind.cog.sanger.ac.uk/index.html?prefix=indexes/).
