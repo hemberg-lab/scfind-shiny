@@ -20,17 +20,14 @@ RUN mkdir -p indexes/brain/www/
 RUN mkdir -p indexes/malaria/www/
 RUN mkdir -p indexes/liver/www/
 RUN mkdir -p indexes/spinalcord/www/
-# download indexes from google drive
-# https://github.com/circulosmeos/gdown.pl
-ADD gdown.pl /
-RUN ./gdown.pl https://drive.google.com/file/d/17SURePw72sv7AO2-KLe2VCKNiTzsnfO-/view?usp=sharing indexes/atacseq/www/data.rds
-RUN ./gdown.pl https://drive.google.com/file/d/17NkExp_xlZGY3uBOgB7TzAM8JbsQg2GG/view?usp=sharing indexes/mca/www/data.rds
-RUN ./gdown.pl https://drive.google.com/file/d/17GTbjMw0u1r3aBKxYdA4aGLCVxqCnJgz/view?usp=sharing indexes/tm-10X/www/data.rds
-RUN ./gdown.pl https://drive.google.com/file/d/17GfNSaOvc4kM7pYMna3jBLsRKcRfjD_E/view?usp=sharing indexes/tm-facs/www/data.rds
-RUN ./gdown.pl https://drive.google.com/file/d/17PzfTuhiTdfz1hIRzJfBNHJxCWIojNFU/view?usp=sharing indexes/brain/www/data.rds
-RUN ./gdown.pl https://drive.google.com/file/d/172cKeUU47wLQ_5qHpkg65JylRMDm0QAU/view?usp=sharing indexes/malaria/www/data.rds
-RUN ./gdown.pl https://drive.google.com/file/d/175rs8N4gxRYzRAUoZiXVtMPLMHk7TnUT/view?usp=sharing indexes/liver/www/data.rds
-RUN ./gdown.pl https://drive.google.com/file/d/178n081u8DsRdFrMY7o14exHOLU1wNigr/view?usp=sharing indexes/spinalcord/www/data.rds
+RUN wget https://scfind.cog.sanger.ac.uk/indexes/atacseq.rds -O indexes/atacseq/www/data.rds
+RUN wget https://scfind.cog.sanger.ac.uk/indexes/mca.rds -O indexes/mca/www/data.rds
+RUN wget https://scfind.cog.sanger.ac.uk/indexes/tm_10X.rds -O indexes/tm-10X/www/data.rds
+RUN wget https://scfind.cog.sanger.ac.uk/indexes/tm_facs.rds -O indexes/tm-facs/www/data.rds
+RUN wget https://scfind.cog.sanger.ac.uk/indexes/LinnarssonAtlas.rds -O indexes/brain/www/data.rds
+RUN wget https://scfind.cog.sanger.ac.uk/indexes/malaria_index.rds -O indexes/malaria/www/data.rds
+RUN wget https://scfind.cog.sanger.ac.uk/indexes/HLiver_MacParland.rds -O indexes/liver/www/data.rds
+RUN wget https://scfind.cog.sanger.ac.uk/indexes/SpinalCordAtlas.rds -O indexes/spinalcord/www/data.rds
 ADD app app/
 RUN for d in indexes/*/; do cp app/* "$d"; done
 RUN cp -r indexes/* /srv/shiny-server
