@@ -20,6 +20,7 @@ RUN mkdir -p indexes/brain/www/
 RUN mkdir -p indexes/malaria/www/
 RUN mkdir -p indexes/liver/www/
 RUN mkdir -p indexes/spinalcord/www/
+RUN mkdir -p indexes/kidney/www/
 RUN wget https://scfind.cog.sanger.ac.uk/indexes/atacseq.rds -O indexes/atacseq/www/data.rds
 RUN wget https://scfind.cog.sanger.ac.uk/indexes/mca.rds -O indexes/mca/www/data.rds
 RUN wget https://scfind.cog.sanger.ac.uk/indexes/tm_10X.rds -O indexes/tm-10X/www/data.rds
@@ -28,6 +29,7 @@ RUN wget https://scfind.cog.sanger.ac.uk/indexes/LinnarssonAtlas.rds -O indexes/
 RUN wget https://scfind.cog.sanger.ac.uk/indexes/malaria_index.rds -O indexes/malaria/www/data.rds
 RUN wget https://scfind.cog.sanger.ac.uk/indexes/HLiver_MacParland.rds -O indexes/liver/www/data.rds
 RUN wget https://scfind.cog.sanger.ac.uk/indexes/SpinalCordAtlas.rds -O indexes/spinalcord/www/data.rds
+RUN wget https://scfind.cog.sanger.ac.uk/indexes/HKidney_Clatworthy.rds -O indexes/kidney/www/data.rds
 ADD app app/
 RUN for d in indexes/*/; do cp app/* "$d"; done
 RUN cp -r indexes/* /srv/shiny-server
@@ -39,7 +41,7 @@ COPY index_page/doc /srv/shiny-server/doc
 COPY index_page/css /srv/shiny-server/css
 
 # R packages
-RUN install2.r data.table DT devtools ggplot2 hash
+RUN install2.r data.table DT devtools ggplot2 hash JuliaCall wordcloud
 
 RUN echo 'source("https://bioconductor.org/biocLite.R")' > /opt/bioconductor.r && \
     echo 'biocLite()' >> /opt/bioconductor.r && \
