@@ -2,8 +2,8 @@ library(scfind)
 
 path_to_object <- normalizePath("www/data.rds")
 
-path_to_w2v <- "" # Not sure the path to be filled here
-path_to_dictionary <- "" # Not sure the path to be filled here
+path_to_w2v <- "/w2v" # Not sure the path to be filled here
+path_to_dictionary <- "/w2v" # Not sure the path to be filled here
 
 
 
