@@ -8,7 +8,7 @@ path_to_dictionary <- "/w2v" # Not sure the path to be filled here
 
 
 
-if(grepl("/atacseq/", path_to_object)) {
+if(grepl("/atacseq/|/malaria/", path_to_object)) {
     server <- scfindShinyServer(object = loadObject("www/data.rds"))
 } else {
     if(grepl("/kidney/|/liver/", path_to_object)) {
